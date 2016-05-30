@@ -17,6 +17,6 @@ If you find bugs or have questions, please contact me. Glad to hear from you.
 
 ***
 
-Mail: "jy9387@outlook.com"
+Mail: jy9387@outlook.com
 
 Homepage: <http://jy9387.github.io/>
