@@ -12,7 +12,7 @@ Codes for our **PRL2016** paper: **"Shape Recognition by Bag of Skeleton-associa
 
 3. Inference: please see exp_animal.m
 
-More technical details please refer to our paper.
+For more technical details please refer to our paper.
 
 If you find bugs or have questions, please contact me. Glad to hear from you.
 
