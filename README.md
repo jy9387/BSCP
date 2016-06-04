@@ -10,7 +10,7 @@ Codes for our **PRL2016** paper: **"Shape Recognition by Bag of Skeleton-associa
 
 2. Tools: you might download the **pdollar's toolbox** [[download]](https://github.com/pdollar/toolbox) and the **liblinear** [[download]](http://www.csie.ntu.edu.tw/~cjlin/liblinear/), and put them into the "include/" directory.
 
-3. Inference: please see exp_animal.m
+3. Interface: please see exp_animal.m
 
 For more technical details please refer to our paper.
 
