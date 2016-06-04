@@ -49,7 +49,7 @@ for ii = 1:nRounds,
     fprintf('svm training....\n');
     tic
     options = ['-s 4 -c ' num2str(c_svm)];
-    model = train( double(tr_label), double(tr_fea), options);
+    model = train( sparse(double(tr_label)), double(tr_fea), options);
     clear tr_fea;
     toc
 
