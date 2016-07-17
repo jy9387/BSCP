@@ -1,8 +1,11 @@
-function [bdKeyPair, SkDist] = pair_sk2bd(skPath, imgPath, maxRadius, show)
+function [bdKeyPair, SkDist] = pair_sk2bd(S, I, maxRadius, show)
 %% Match boundary points to skeleton points.
 % Inputs:
-%       skPath      : The path of the skeleton feature;
-%       imgPath     : The path of the image;
+%       S           : The skeleton map. Each skeleton point is labeled
+%                     with its scale while the non-skeleton points are 
+%                     label as zeros;
+%       I           : The binarized image, which represents the shape of
+%                     an object;
 %       maxRadius   : The radius used when thickening the skeleton;
 %       show        : Decides whether the matching will be shown or not;
 % Outputs:
@@ -36,8 +39,6 @@ if nargin < 4
     end
 end
 
-load(skPath);
-S = SK; % w.r.t the variable name you used when saving skeletons.
 skSize = size(S);
 
 %% Thicken the boundaries so as to find more key-points on the boundary;
@@ -45,12 +46,11 @@ skSize = size(S);
 S_thick = S; S_thick(D <= maxRadius) = S_IDX(D <= maxRadius);
 
 %% Obtain the longest boundary;
-I = imread(imgPath);
 assert((size(S,1) == size(I, 1)) & (size(S,2) == size(I,2)));
 
 boundaries = bwboundaries(I, 'noholes');
 if length(boundaries) > 1
-    fprintf('Warning: the numbers of boundary are more than one.( %s boundaries in %s )',num2str(length(boundaries)),skPath);
+    fprintf('Warning: the numbers of boundary are more than one.( %s boundaries in %s )',num2str(length(boundaries)),S);
     L = zeros(length(boundaries), 1);
     for l = 1:length(L)
         L(l) = size(boundaries{l}, 1);
@@ -69,7 +69,7 @@ BW = zeros(skSize); BW(bdIndex) = 1;
 [~, BW_IDX] = bwdist(BW);
 sk2bd_IDX = BW_IDX(S_thick>0);
 bdKeyIndex = unique(sk2bd_IDX); % Key-points on the boundary;
-bdKeyValue = zeros(length(bdKeyIndex));
+bdKeyValue = zeros(length(bdKeyIndex), 1);
 bdKeyPair = zeros(length(bdKeyIndex), 2); % 'bdKeyPair' denotes the relationship among the skeleton points and boundary key-points;
 bdKeyPair(:, 2) = bdKeyIndex; % second col: indexes of key-points on the boundary; first col: indexes of skeleton points corresponding to these key-points.
 
@@ -124,5 +124,4 @@ bdValue = [bdValue(end-bdKeyOrder_First + 2:end); bdValue(1:end-bdKeyOrder_First
 
 SkDist = zeros(size(S));
 SkDist(bdIndex) = bdValue;
-save([skPath(1:end-7), '_SkDist.mat'], 'SkDist');
 end

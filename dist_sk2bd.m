@@ -13,7 +13,7 @@ function dist_sk2bd(img_dir, fmt)
 function func_dist_sk2bd(SK_name )
     
 	load(SK_name);
-    SK=SK';
+    SK=SK;
     [skrow, skcol]=find(SK);
     skIndexOrigin=skrow+(skcol-1)*size(SK,1);
     %% Find the 24-connected area of all points on the boundary; 
@@ -83,7 +83,7 @@ function func_dist_sk2bd(SK_name )
     bdKeyIndex=unique(sk2bd_IDX); % Key points on the boundary;
     bdKeyValue=zeros(size(bdKeyIndex));
     
-    show=false; % visualization;
+    show=true; % visualization;
     if show
         close;
         imshow(I-SK);hold on;
